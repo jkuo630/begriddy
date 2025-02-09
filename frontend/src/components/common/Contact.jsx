@@ -1,21 +1,36 @@
 import { motion } from "framer-motion";
 import ScrollAnimation from "./ScrollAnimation";
 import jasonHeadshot from "../../assets/Jason.jpg";
-import justinHeadshot from "../../assets/Justin.png"
+import lucasHeadshot from "../../assets/Lucas.jpg";
+import marcusHeadshot from "../../assets/Marcus.png";
+import michelleHeadshot from "../../assets/Michelle.jpg";
 
 const people = [
   {
-    name: "Justin Cheng",
+    name: "Marcus Kam",
     role: "Co-Founder",
-    description: "Consulting Intern @ IBM, Business Student @ York University",
-    imageUrl:
-      justinHeadshot, 
+    description: "3rd Year BUCS @ UBC",
+    imageUrl: marcusHeadshot,
   },
   {
     name: "Jason Kuo",
-    role: "Technical Co-Founder",
-    description: "Software Engineer Intern @ Meta, Business & CS Student @ UBC",
+    role: "Co-Founder",
+    description: "3rd Year BUCS @ UBC",
     imageUrl: jasonHeadshot,
+  },
+
+  {
+    name: "Lucas Gingera",
+    role: "Co-Founder",
+    description: "2rd Year BUCS @ UBC",
+    imageUrl: lucasHeadshot,
+  },
+
+  {
+    name: "Michelle Wan",
+    role: "Co-Founder",
+    description: "3rd Year BUCS @ UBC",
+    imageUrl: michelleHeadshot,
   },
 ];
 
@@ -29,9 +44,7 @@ export default function Contact() {
               Meet our leadership
             </h2>
             <p className="mt-6 text-lg/8 text-gray-600">
-              We’re students who faced the challenge of finding secure,
-              affordable short-term housing and decided to create a solution
-              tailored for others like us.
+              We might be ill in the head. 
             </p>
           </div>
         </ScrollAnimation>

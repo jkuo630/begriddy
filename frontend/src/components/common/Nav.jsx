@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/Logo.png";
+import Logo from "../../assets/BeGriddy.png";
 
 const navigation = [
   { name: "Home", href: "/", isHome: true },
@@ -29,6 +29,11 @@ export default function Nav() {
       window.scrollTo({ top: 0, behavior: "smooth" });
       setMobileMenuOpen(false);
     }
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/waitlist");
   };
 
   return (
@@ -66,7 +71,11 @@ export default function Nav() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <a
+            href="#"
+            onClick={handleLogin}
+            className="text-sm/6 font-semibold text-gray-900"
+          >
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -80,7 +89,7 @@ export default function Nav() {
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">bunkd</span>
+              <span className="sr-only">BeGriddy</span>
               <img
                 alt=""
                 src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
@@ -112,7 +121,7 @@ export default function Nav() {
               </div>
               <div className="py-6">
                 <a
-                  href="#"
+                  href=""
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Log in

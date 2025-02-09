@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
   const handleNavClick = (e, href) => {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-      setMobileMenuOpen(false);
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -58,11 +58,10 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-            Revolutionizing housing for Students
+            Revolutionizing social media
           </h1>
           <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
-            A trusted, student-only platform specifically designed for
-            short-term housing. Peer-to-peer rentals or even housing swaps.
+            temp temp temp temp temp temp temp temp temp temp temp
           </p>
           <motion.div
             className="mt-10 flex items-center justify-center gap-x-6"
@@ -71,13 +70,16 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Link
-              to="/waitlist"
+              to="/griddy"
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Join Waitlist
+              Start
             </Link>
-            <a href="#faq" onClick={(e) => handleNavClick(e, "#faq")}
-             className="text-sm/6 font-semibold text-gray-900">
+            <a
+              href="#faq"
+              onClick={(e) => handleNavClick(e, "#faq")}
+              className="text-sm/6 font-semibold text-gray-900"
+            >
               Learn more <span aria-hidden="true">→</span>
             </a>
           </motion.div>
