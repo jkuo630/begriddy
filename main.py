@@ -1,11 +1,13 @@
-from flask import Flask, render_template, Response
+from flask import Flask, Response
+from flask_cors import CORS  # Enable CORS for React frontend
 import cv2
 import mediapipe as mp
 import numpy as np
 from flask_socketio import SocketIO
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -38,6 +40,9 @@ def generate_frames():
             if not ret:
                 break
 
+            # Resize the frame to a specific resolution (e.g., 640x480)
+            frame = cv2.resize(frame, (640, 480))
+
             # Recolor image to RGB
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image.flags.writeable = False
@@ -64,11 +69,6 @@ def generate_frames():
                 # Calculate angle
                 angle = calculate_angle(shoulder, elbow, wrist)
 
-                # Visualize angle
-                cv2.putText(image, str(angle),
-                            tuple(np.multiply(elbow, [640, 480]).astype(int)),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-
                 # Curl counter logic
                 if angle > 160:
                     stage = "down"
@@ -80,24 +80,6 @@ def generate_frames():
             except:
                 pass
 
-            # Render curl counter
-            # Setup status box
-            cv2.rectangle(image, (0, 0), (225, 73), (245, 117, 16), -1)
-
-            # Rep data
-            cv2.putText(image, 'REPS', (15, 12),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
-            cv2.putText(image, str(counter),
-                        (10, 60),
-                        cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
-
-            # Stage data
-            cv2.putText(image, 'STAGE', (65, 12),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
-            cv2.putText(image, stage,
-                        (60, 60),
-                        cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
-
             # Render detections
             mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
                                       mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=2),
@@ -108,13 +90,10 @@ def generate_frames():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, port=5001)
+
