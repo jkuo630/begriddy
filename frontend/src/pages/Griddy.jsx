@@ -46,6 +46,31 @@ const Griddy = () => {
       // Stop recording when countdown finishes
       fetch("http://localhost:5001/stop_recording").then(() => {
         navigate("/loading", { state: { griddyCount: counter } });
+        // Data to send for the leaderboard
+        const leaderboardData = {
+          pfp: "/pfps/marcus.png",
+          username: "marcuskam01",
+          score: counter, // Assuming the counter is the score
+          location: "North Van",
+          postTime: "1min ago",
+          postMedia: "/output_video.mp4",
+        };
+
+        // POST request to add to leaderboard
+        fetch("http://localhost:5001/leaderboard/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(leaderboardData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Leaderboard update response:", data);
+          })
+          .catch((error) => {
+            console.error("Error posting to leaderboard:", error);
+          });
       });
     }
   }, [countdown, isCameraOn, counter, navigate]);

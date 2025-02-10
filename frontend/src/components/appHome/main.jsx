@@ -34,13 +34,6 @@ const data = [
     username: "jkuo630",
     location: "UBC",
     postTime: "2hr ago",
-    postMedia: "/output_video.mp4", // Same media for all
-  },
-  {
-    pfp: "/pfps/jason.jpg",
-    username: "jkuo630",
-    location: "UBC",
-    postTime: "2hr ago",
     postMedia: "/jason.mp4", // Same media for all
   },
   {

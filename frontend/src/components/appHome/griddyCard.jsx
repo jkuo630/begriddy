@@ -3,12 +3,18 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function GriddyCard({ pfp, username, location, postTime, postMedia, index }) {
   const [hasPosted, setHasPosted] = useState(false); // State to track if the user has posted
+  const navigate = useNavigate(); // Initialize navigate
 
   const handlePostGriddy = () => {
     setHasPosted(true); // Simulate posting your Griddy
+  };
+
+  const handleGriddyClick = () => {
+    navigate("/griddy"); // Navigate to the /griddy page when button is clicked
   };
 
   return (
@@ -45,7 +51,7 @@ function GriddyCard({ pfp, username, location, postTime, postMedia, index }) {
               To view your friends’ BeGriddy, share yours with them.
             </p>
             <button
-              onClick={handlePostGriddy}
+              onClick={handleGriddyClick} // Call handleGriddyClick to navigate
               className="bg-white text-sm text-black px-2 py-1 rounded-xl hover:bg-blue-600 transition-colors"
             >
               <CameraAltIcon className="text-black mr-2" />
