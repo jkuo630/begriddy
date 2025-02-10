@@ -21,7 +21,7 @@ const Griddy = () => {
       }, 1000);
     } else if (countdown === 0) {
       setIsCameraOn(true);
-      setCountdown(10); // Start the 5-second countdown
+      setCountdown(10); // Start the 10-second countdown
     }
 
     return () => clearInterval(countdownInterval);
@@ -43,9 +43,17 @@ const Griddy = () => {
 
   useEffect(() => {
     if (isCameraOn && countdown === 0) {
-      navigate("/loading", { state: { griddyCount: counter } });
+      // Stop recording when countdown finishes
+      fetch("http://localhost:5001/stop_recording").then(() => {
+        navigate("/loading", { state: { griddyCount: counter } });
+      });
     }
   }, [countdown, isCameraOn, counter, navigate]);
+
+  const startRecording = () => {
+    fetch("http://localhost:5001/start_recording");
+    setCountdown(3);
+  };
 
   return (
     <div
@@ -73,20 +81,19 @@ const Griddy = () => {
             <div className="relative w-[320px] h-[480px] bg-[#C4C4C4] rounded-xl">
               <img
                 ref={videoRef}
-                alt="Live Feed"
                 className="w-full h-full object-cover rounded-xl"
+                alt="Griddy Feed"
               />
             </div>
           </div>
         )}
 
-        {countdown === null && !isCameraOn && (
-          <RadioButtonCheckedIcon
-            onClick={() => setCountdown(3)}
-            className="cursor-pointer text-red-500"
-            style={{ fontSize: 70 }}
-          />
-        )}
+        <div
+          className="w-20 h-20 flex justify-center items-center bg-red-600 text-white rounded-full"
+          onClick={startRecording}
+        >
+          <RadioButtonCheckedIcon style={{ fontSize: "50px" }} />
+        </div>
       </div>
     </div>
   );

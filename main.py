@@ -1,9 +1,10 @@
-from flask import Flask, Response
-from flask_cors import CORS  # Enable CORS for React frontend
+from flask import Flask, jsonify, request, Response, send_from_directory
+from flask_cors import CORS
 import cv2
 import mediapipe as mp
 import numpy as np
 from flask_socketio import SocketIO
+import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -17,6 +18,69 @@ cap = cv2.VideoCapture(0)
 # Curl counter variables
 counter = 0
 stage = None
+
+# Path to save video in public folder
+public_folder_path = os.path.join(os.getcwd(), 'frontend', 'public')
+output_video_path = os.path.join(public_folder_path, 'output_video.mp4')
+
+# Ensure the public folder exists
+if not os.path.exists(public_folder_path):
+    os.makedirs(public_folder_path)
+
+# VideoWriter to save the video to file
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Use mp4v codec for MP4 format
+output_video = None
+
+leaderboard = [
+    {
+        "pfp": "/pfps/jason.jpg",
+        "username": "jkuo630",
+        "score": 1200,
+        "location": "UBC",
+        "postTime": "2hr ago",
+        "postMedia": "/jason.mp4",
+    },
+    {
+        "pfp": "/pfps/jay.png",
+        "username": "therealjaypark",
+        "score": 980,
+        "location": "SFU",
+        "postTime": "3hr ago",
+        "postMedia": "/jay.mp4",
+    },
+    {
+        "pfp": "/pfps/joanna.png",
+        "username": "leejoannx",
+        "score": 1120,
+        "location": "Vancouver",
+        "postTime": "4hr ago",
+        "postMedia": "/joanna.mp4",
+    },
+    {
+        "pfp": "/pfps/henry.png",
+        "username": "henryleung1",
+        "score": 890,
+        "location": "Burnaby",
+        "postTime": "5hr ago",
+        "postMedia": "/henry.mp4",
+    },
+    {
+        "pfp": "/pfps/pauline.png",
+        "username": "paulineongchan",
+        "score": 1030,
+        "location": "Burnaby",
+        "postTime": "5hr ago",
+        "postMedia": "/pauline.mp4",
+    },
+    {
+        "pfp": "/pfps/kevin.png",
+        "username": "kxiao33",
+        "score": 950,
+        "location": "Burnaby",
+        "postTime": "5hr ago",
+        "postMedia": "/kevin.mp4",
+    },
+]
 
 def calculate_angle(a, b, c):
     a = np.array(a)  # First
@@ -32,11 +96,10 @@ def calculate_angle(a, b, c):
     return angle
 
 def generate_frames():
-    global counter, stage
+    global counter, stage, output_video
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
         while cap.isOpened():
             ret, frame = cap.read()
-
             if not ret:
                 break
 
@@ -54,11 +117,11 @@ def generate_frames():
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-            # Extract landmarks
+            # Extract landmarks and calculate angles
             try:
                 landmarks = results.pose_landmarks.landmark
 
-                # Get coordinates
+                # Get coordinates for shoulder, elbow, and wrist
                 shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
                             landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
                 elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
@@ -85,14 +148,67 @@ def generate_frames():
                                       mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=2),
                                       mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2))
 
+            # If recording, write the frame to the output video file
+            if output_video:
+                output_video.write(image)
+
             ret, buffer = cv2.imencode('.jpg', image)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+    # Release the video capture when finished
+    if output_video:
+        output_video.release()
+
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/start_recording')
+def start_recording():
+    global output_video
+    if not output_video:
+        output_video = cv2.VideoWriter(output_video_path, fourcc, 20.0, (640, 480))  # Start recording
+    return "Recording started."
+
+@app.route('/stop_recording')
+def stop_recording():
+    global output_video
+    if output_video:
+        output_video.release()  # Stop recording
+        output_video = None
+    return "Recording stopped."
+
+@app.route('/public_video')
+def public_video():
+    # Serve the saved video from the public folder
+    return send_from_directory(public_folder_path, 'output_video.mp4')
+
+@app.route("/leaderboard", methods=["GET"])
+def get_leaderboard():
+    """Fetch the current leaderboard."""
+    return jsonify(leaderboard)
+
+@app.route("/leaderboard/add", methods=["POST"])
+def add_to_leaderboard():
+    """Add a new user entry to the leaderboard."""
+    new_entry = request.json
+
+    # Ensure required fields are present
+    required_fields = {"username", "pfp", "score", "location", "postTime", "postMedia"}
+    if not required_fields.issubset(new_entry.keys()):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    # Check if user already exists
+    for entry in leaderboard:
+        if entry["username"] == new_entry["username"]:
+            return jsonify({"error": "User already exists"}), 400
+
+    # Add new entry to leaderboard
+    leaderboard.append(new_entry)
+
+    return jsonify({"message": "User added successfully", "leaderboard": leaderboard})
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, port=5001)
