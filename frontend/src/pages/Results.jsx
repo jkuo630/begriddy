@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/results/navbar";
 
@@ -10,6 +9,17 @@ const Results = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
       <Navbar />
+
+      <video
+          className="w-full h-[70%] object-cover"
+          autoPlay={true}
+          muted
+          loop
+          playsInline
+        >
+          <source src="/output_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
       {/* View GriddyBoard Button */}
       <button
