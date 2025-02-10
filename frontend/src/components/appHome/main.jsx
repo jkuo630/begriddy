@@ -1,28 +1,27 @@
 import Header from "./header";
 import GriddyCard from "./griddyCard";
+import VideoBox from "./optimalGriddy";
 
 // TODOS:
-// - ADD VIDEOS IN
-// - add optimal griddy sections
 // - add griddyboard
 
 function MainPage() {
-    const placeholderPfp = "https://as1.ftcdn.net/v2/jpg/06/95/65/86/1000_F_695658623_qQOKTAa5f0NJ9QIvwDoImSiYGQvRbltI.jpg"
     return (
         <div
             className="flex flex-col overflow-y-auto items-center bg-contain bg-fixed bg-center bg-gray-900 px-10 py-[80px]"
             style={{ backgroundImage: "url('/background.png')" }}
         >
             <Header />
+            <VideoBox />
             {data.map((item, index) => (
                 <GriddyCard
                     key={index}
                     index={index} 
-                    pfp={placeholderPfp}
+                    pfp={item.pfp}
                     username={item.username}
                     location={item.location}
                     postTime={item.postTime}
-                    postMedia={placeholderPfp}
+                    postMedia={item.postMedia}
                 />
             ))}
         </div>
@@ -31,32 +30,46 @@ function MainPage() {
 
 const data = [
     {
-        pfp: "https://via.placeholder.com/40",
-        username: "user1",
+        pfp: "/pfps/jason.jpg",
+        username: "jkuo630",
         location: "UBC",
         postTime: "2hr ago",
-        postMedia: "https://via.placeholder.com/400x400", // Same media for all
+        postMedia: "/jason.mp4", // Same media for all
     },
     {
-        pfp: "https://via.placeholder.com/40",
-        username: "user2",
+        pfp: "/pfps/jay.png",
+        username: "therealjaypark",
         location: "SFU",
         postTime: "3hr ago",
-        postMedia: "https://via.placeholder.com/400x400", // Same media for all
+        postMedia: "/jay.mp4", // Same media for all
     },
     {
-        pfp: "https://via.placeholder.com/40",
-        username: "user3",
+        pfp: "/pfps/joanna.png",
+        username: "leejoannx",
         location: "Vancouver",
         postTime: "4hr ago",
-        postMedia: "https://via.placeholder.com/400x400", // Same media for all
+        postMedia: "/joanna.mp4", // Same media for all
     },
     {
-        pfp: "https://via.placeholder.com/40",
-        username: "user4",
+        pfp: "/pfps/henry.png",
+        username: "henryleung1",
         location: "Burnaby",
         postTime: "5hr ago",
-        postMedia: "https://via.placeholder.com/400x400", // Same media for all
+        postMedia: "/henry.mp4", // Same media for all
+    },
+    {
+        pfp: "/pfps/pauline.png",
+        username: "paulineongchan",
+        location: "Burnaby",
+        postTime: "5hr ago",
+        postMedia: "/pauline.mp4", // Same media for all
+    },
+    {
+        pfp: "/pfps/kevin.png",
+        username: "kxiao33",
+        location: "Burnaby",
+        postTime: "5hr ago",
+        postMedia: "/kevin.mp4", // Same media for all
     },
 ];
 
