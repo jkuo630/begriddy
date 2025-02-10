@@ -41,10 +41,10 @@ export default function Contact() {
         <ScrollAnimation>
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
-              Meet our leadership
+              Meet Our Leadership
             </h2>
             <p className="mt-6 text-lg/8 text-gray-600">
-              We might be ill in the head. 
+              Leading the Charge, One Griddy at a Time. 
             </p>
           </div>
         </ScrollAnimation>

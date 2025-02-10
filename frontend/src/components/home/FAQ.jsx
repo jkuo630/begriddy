@@ -1,29 +1,29 @@
-import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon } from '@heroicons/react/24/outline'
+import { VideoCameraIcon, ViewfinderCircleIcon, ArrowPathIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 
 const features = [
   {
-    name: 'Push to deploy',
+    name: 'Real-Time Pose Detection',
     description:
-      'Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.',
-    icon: CloudArrowUpIcon,
+      'Captures live video from your webcam and uses MediaPipe to detect and track body movements.',
+    icon: ViewfinderCircleIcon,
   },
   {
-    name: 'SSL certificates',
+    name: 'Motion Tracking & Counting',
     description:
-      'Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.',
-    icon: LockClosedIcon,
+      'Calculates joint angles to identify movements and updates a counter when motions are completed.',
+    icon: PlusCircleIcon,
   },
   {
-    name: 'Simple queues',
+    name: 'Live Video Streaming',
     description:
-      'Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.',
+      'Streams the processed video feed to the frontend for real-time visual feedback.',
+    icon: VideoCameraIcon,
+  },
+  {
+    name: 'Instant Updates via WebSockets',
+    description:
+      'Sends real-time counter updates to connected clients using Flask-SocketIO.',
     icon: ArrowPathIcon,
-  },
-  {
-    name: 'Advanced security',
-    description:
-      'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
-    icon: FingerPrintIcon,
   },
 ]
 
@@ -33,7 +33,7 @@ export default function FAQ() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
-            Frequently Asked Questions
+            The Mechanics
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
