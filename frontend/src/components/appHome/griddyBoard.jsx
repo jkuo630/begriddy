@@ -1,11 +1,28 @@
+import { useState, useEffect } from "react";
 import Header from "./header";
-import GriddyCard from "./griddyCard";
 import { motion } from "framer-motion";
 
-// TODOS:
-// - add griddyboard
-
 function GriddyBoard() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchLeaderboard = async () => {
+            try {
+                const response = await fetch("/leaderboard");
+                if (response.ok) {
+                    const data = await response.json();
+                    setData(data);
+                } else {
+                    console.error("Failed to fetch leaderboard data");
+                }
+            } catch (error) {
+                console.error("Error fetching leaderboard data:", error);
+            }
+        };
+
+        fetchLeaderboard();
+    }, []);
+
     return (
         <div
             className="flex flex-col overflow-y-auto min-h-screen items-center justify-center bg-contain bg-fixed bg-center bg-gray-900 px-5 py-[80px]"
@@ -61,37 +78,38 @@ function GriddyBoard() {
         </div>
     );
 }
-const data = [
-    {
-        pfp: "/pfps/jason.jpg",
-        username: "jkuo630",
-        score: 1200,
-    },
-    {
-        pfp: "/pfps/jay.png",
-        username: "therealjaypark",
-        score: 980,
-    },
-    {
-        pfp: "/pfps/joanna.png",
-        username: "leejoannx",
-        score: 1120,
-    },
-    {
-        pfp: "/pfps/henry.png",
-        username: "henryleung1",
-        score: 890,
-    },
-    {
-        pfp: "/pfps/pauline.png",
-        username: "paulineongchan",
-        score: 1030,
-    },
-    {
-        pfp: "/pfps/kevin.png",
-        username: "kxiao33",
-        score: 950,
-    },
-];
+
+// const data = [
+//     {
+//         pfp: "/pfps/jason.jpg",
+//         username: "jkuo630",
+//         score: 1200,
+//     },
+//     {
+//         pfp: "/pfps/jay.png",
+//         username: "therealjaypark",
+//         score: 980,
+//     },
+//     {
+//         pfp: "/pfps/joanna.png",
+//         username: "leejoannx",
+//         score: 1120,
+//     },
+//     {
+//         pfp: "/pfps/henry.png",
+//         username: "henryleung1",
+//         score: 890,
+//     },
+//     {
+//         pfp: "/pfps/pauline.png",
+//         username: "paulineongchan",
+//         score: 1030,
+//     },
+//     {
+//         pfp: "/pfps/kevin.png",
+//         username: "kxiao33",
+//         score: 950,
+//     },
+// ];
 
 export default GriddyBoard;
