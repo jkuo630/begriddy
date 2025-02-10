@@ -1,23 +1,24 @@
-import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
+import { BellIcon, VideoCameraIcon, ShareIcon } from '@heroicons/react/20/solid'
 import { motion } from 'framer-motion'
 import ScrollAnimation from '../common/ScrollAnimation'
+import HowItWorksImg from '../../assets/HowItWorks.png';
 
 const features = [
   {
-    name: 'Verified Listings.',
+    name: 'Get the Ping.',
     description:
-      'Only student email holders can post or rent, ensuring a trusted community.',
-    icon: CloudArrowUpIcon,
+      'You’ll never know when it’s coming.',
+    icon: BellIcon,
   },
   {
-    name: 'Push to Find Housing Matches.',
-    description: 'Quickly discover options near your internship, university, or desired location with flexible lease terms or even housing swaps from other students.',
-    icon: LockClosedIcon,
+    name: 'Hit the Griddy.',
+    description: 'You’ve got 2 minutes to show off your moves.',
+    icon: VideoCameraIcon,
   },
   {
-    name: 'Location Filters & Price Tools.',
-    description: 'Easily compare rent against market averages.',
-    icon: ServerIcon,
+    name: 'Post & Roast.',
+    description: 'Your friends see it all—no re-dos, no filters.',
+    icon: ShareIcon,
   },
 ]
 
@@ -30,14 +31,13 @@ export default function HowItWorks() {
             <div className="lg:max-w-lg">
               <ScrollAnimation>
                 <h2 className="text-base/7 font-semibold text-indigo-600">
-                  Find Affordable, Trusted Housing Faster
+                  Griddy all day, every day
                 </h2>
                 <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                  Built for Students, By Students
+                  How It Works
                 </p>
                 <p className="mt-6 text-lg/8 text-gray-600">
-                  Interns and students deserve secure, flexible housing solutions tailored to their needs. Our platform simplifies 
-                  the process of finding or swapping short-term rentals, offering unmatched convenience and trust.
+                Forget perfect posts. BeGriddy is about real, spontaneous fun. Because life’s better when you’re dancing through it.
                 </p>
               </ScrollAnimation>
               
@@ -73,10 +73,10 @@ export default function HowItWorks() {
                 transition={{ duration: 0.8, type: "spring" }}
                 viewport={{ once: true }}
                 alt="Product screenshot"
-                src="https://tailwindui.com/plus/img/component-images/dark-project-app-screenshot.png"
+                src={HowItWorksImg}
                 width={2432}
                 height={1442}
-                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
+                className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[40rem] md:-ml-4 lg:-ml-0"
               />
             </motion.div>
           </ScrollAnimation>

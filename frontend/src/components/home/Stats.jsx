@@ -2,9 +2,9 @@ import ScrollAnimation from '../common/ScrollAnimation'
 import { motion } from 'framer-motion'
 
 const stats = [
-    { id: 1, name: 'Transactions every 24 hours', value: '44 million' },
-    { id: 2, name: 'Assets under holding', value: '$119 trillion' },
-    { id: 3, name: 'New users annually', value: '46,000' },
+    { id: 1, name: '- Satisfied BeGriddy User', value: '"BeGriddy cured my depression!"'},
+    { id: 2, name: '- Jonathan Grey (BUCS Chair)', value: '"The greatest innovation since OpenAI"' },
+    { id: 3, name: '- Jay Park (Now Deceased)', value: '"Isn\'t this just a BeReal rip off, but Griddys?"' },
   ]
   
   export default function Stats() {

@@ -44,7 +44,7 @@ export default function Hero() {
         >
           <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
             Currently looking for Alpha testers.{" "}
-            <a href="#" className="font-semibold text-indigo-600">
+            <a href="homepage" className="font-semibold text-indigo-600">
               <span aria-hidden="true" className="absolute inset-0" />
               Read more <span aria-hidden="true">&rarr;</span>
             </a>
@@ -58,10 +58,10 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-            Revolutionizing social media
+            Life's too short to stand still.
           </h1>
           <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
-            temp temp temp temp temp temp temp temp temp temp temp
+          We hit you with a random notification every day and you’ve got 2 minutes to hit the griddy wherever you are. In class? At work? On the bus? No excuses.
           </p>
           <motion.div
             className="mt-10 flex items-center justify-center gap-x-6"

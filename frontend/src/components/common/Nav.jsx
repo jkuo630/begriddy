@@ -6,9 +6,9 @@ import Logo from "../../assets/BeGriddy.png";
 
 const navigation = [
   { name: "Home", href: "/", isHome: true },
-  { name: "How it works", href: "#how-it-works" },
-  { name: "FAQ", href: "#faq" },
-  { name: "Contact", href: "#contact" },
+  { name: "How It Works", href: "#how-it-works" },
+  { name: "The Mechanics", href: "#faq" },
+  { name: "Leadership", href: "#contact" },
 ];
 
 export default function Nav() {
