@@ -8,7 +8,7 @@ function GriddyBoard() {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const response = await fetch("/leaderboard");
+                const response = await fetch("http://localhost:5002/leaderboard");
                 if (response.ok) {
                     const data = await response.json();
                     setData(data);

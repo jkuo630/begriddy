@@ -11,15 +11,15 @@ const Results = () => {
       <Navbar />
 
       <video
-          className="w-full h-[70%] object-cover"
-          autoPlay={true}
-          muted
-          loop
-          playsInline
-        >
-          <source src="/output_video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        className="w-full h-[70%] object-cover"
+        autoPlay={true}
+        muted
+        loop
+        playsInline
+      >
+        <source src="/output_video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
       {/* View GriddyBoard Button */}
       <button

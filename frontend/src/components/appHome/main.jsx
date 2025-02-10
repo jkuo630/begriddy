@@ -4,26 +4,44 @@ import VideoBox from "./optimalGriddy";
 import { useState, useEffect } from "react";
 
 function MainPage() {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-        // Fetch leaderboard data from the backend
-        const fetchLeaderboard = async () => {
-            try {
-                const response = await fetch("/leaderboard");
-                if (response.ok) {
-                    const data = await response.json();
-                    setData(data);
-                } else {
-                    console.error("Failed to fetch leaderboard data");
-                }
-            } catch (error) {
-                console.error("Error fetching leaderboard data:", error);
-            }
-        };
+  useEffect(() => {
+    // Fetch leaderboard data from the backend
+    // const fetchLeaderboard = async () => {
+    //     try {
+    //         const response = await fetch("/leaderboard");
+    //         console.log(response)
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setData(data);
+    //         } else {
+    //             console.error("Failed to fetch leaderboard data");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching leaderboard data:", error);
+    //     }
+    // };
+    const fetchLeaderboard = async () => {
+      try {
+        const response = await fetch("http://localhost:5002/leaderboard");
+        const text = await response.text(); // Get response as plain text
 
-        fetchLeaderboard();
-    }, []);
+        console.log("Response body:", text); // Log the response body for inspection
+
+        if (response.ok) {
+          const data = JSON.parse(text); // Try parsing as JSON if it's valid
+          setData(data);
+        } else {
+          console.error("Failed to fetch leaderboard data");
+        }
+      } catch (error) {
+        console.error("Error fetching leaderboard data:", error);
+      }
+    };
+
+    fetchLeaderboard();
+  }, []);
 
   return (
     <div

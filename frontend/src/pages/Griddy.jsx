@@ -21,7 +21,7 @@ const Griddy = () => {
       }, 1000);
     } else if (countdown === 0) {
       setIsCameraOn(true);
-      setCountdown(10); // Start the 10-second countdown
+      setCountdown(30); // Start the 10-second countdown
     }
 
     return () => clearInterval(countdownInterval);
